@@ -29,6 +29,12 @@ Para que hibernate cree las tablas automaticamente por primera vez:
 #spring.jpa.hibernate.ddl-auto=create
 ```
 
+## Documentacion Swagger
+Se implementa el modulo de swagger para poder documentar y testear los endpoints del aplicativo, 
+una vez el backend este inicializado vamos a la Url [Swagger] 
+
+
+
 ## Video de presentación
 
 
@@ -41,3 +47,4 @@ MIT
 **Free Software, Yeah!**
 
 [Video]: <https://drive.google.com/file/d/1u6bGZ2va4X6tjvVddkW5r3OGU8fsBnJm/view?usp=sharing>
+[Swagger]: <http://localhost:8080/swagger-ui.html>

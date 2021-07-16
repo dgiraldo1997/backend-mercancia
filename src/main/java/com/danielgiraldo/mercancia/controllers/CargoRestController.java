@@ -10,6 +10,7 @@ import com.danielgiraldo.mercancia.models.services.ICargoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,33 +35,38 @@ public class CargoRestController {
     private ICargoService cargoServise;
     
     @GetMapping("/cargos")
-    public List<Cargo> index(){
-        return cargoServise.findAll();
+    public ResponseEntity<List<Cargo>> index(){
+        return ResponseEntity.ok(cargoServise.findAll());
     }
     
     @GetMapping("/cargos/{id}")
-    public Cargo show(@PathVariable Long id){
-       return cargoServise.findById(id);
+    public ResponseEntity<Cargo> show(@PathVariable Long id){
+       return ResponseEntity.ok(cargoServise.findById(id));
     }
     
     @PostMapping("/cargos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cargo create(@RequestBody Cargo cargo){
-        return cargoServise.save(cargo);
+    public ResponseEntity<Cargo> create(@RequestBody Cargo cargo){
+        return ResponseEntity.ok(cargoServise.save(cargo));
     }
     
     @PutMapping("/cargos/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cargo update(@RequestBody Cargo cargo, @PathVariable Long id){
+    public ResponseEntity<Cargo> update(@RequestBody Cargo cargo, @PathVariable Long id){
         Cargo cargoActual= cargoServise.findById(id);
         cargoActual.setNombre(cargo.getNombre());
-        return cargoServise.save(cargoActual);
+        return ResponseEntity.ok(cargoServise.save(cargoActual));
     }
     
     @DeleteMapping("/cargos/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id){
-        cargoServise.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        try{
+            cargoServise.delete(id);
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
     
     
